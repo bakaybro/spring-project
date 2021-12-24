@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 public class Users {
 
@@ -17,12 +17,7 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
-    private String login;
-
-    @Column
-    private String email;
 }

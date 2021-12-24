@@ -1,17 +1,13 @@
 package com.example.springproject.controller;
 
-import com.example.springproject.dto.UsersDto;
-import com.example.springproject.exception.ValidationException;
+import com.example.springproject.entity.Users;
 import com.example.springproject.service.UsersService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/user")
 @AllArgsConstructor
 @Log
 @CrossOrigin
@@ -19,28 +15,19 @@ public class UsersController {
 
     private final UsersService usersService;
 
-    @PostMapping("/save")
-    public UsersDto saveUsers(@RequestBody UsersDto usersDto) throws ValidationException {
-        log.info("Handling save users: " + usersDto);
-        return usersService.saveUser(usersDto);
+    @PostMapping("/counter")
+    public String inquiryPost() {
+        Users user = new Users();
+        user.setName("Post");
+        usersService.save(user);
+        return null;
     }
 
-    @GetMapping("/findAll")
-    public List<UsersDto> findAllUsers() {
-        log.info("Handling find all users request");
-        return usersService.findAll();
-    }
-
-    @GetMapping("/findByLogin")
-    public UsersDto findByLogin(@RequestParam String login) {
-        log.info("Handling find by login request: " + login);
-        return usersService.findByLogin(login);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteUsers(@PathVariable Integer id) {
-        log.info("Handling delete user request: " + id);
-        usersService.deleteUser(id);
-        return ResponseEntity.ok().build();
+    @GetMapping("/counter")
+    public Integer counter() {
+        Users user = new Users();
+        user.setName("Get");
+        usersService.save(user);
+        return usersService.counter();
     }
 }
